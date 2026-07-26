@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import Navbar from "../../src/components/GlobalComponets/Navbar"
+import { useState } from 'react'
+//import Navbar from "../../src/components/GlobalComponets/Navbar"
 import Select from 'react-select'
 import { TbCode } from "react-icons/tb";
 import Editor from '@monaco-editor/react';
@@ -60,7 +60,8 @@ const Home = () => {
     try {
       await navigator.clipboard.writeText(code);
       toast.success("Code copied to clipboard")
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       toast.error("Failed to copy");
     }
   }
@@ -145,12 +146,12 @@ const Home = () => {
   }
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
         <div className="flex flex-col lg:flex-row gap-5">
 
-          <div className="w-full lg:w-1/2 min-h-[400px] lg:h-[80vh] rounded-md bg-[#141319] p-4 sm:p-5 md:p-6">
+          <div className="w-full lg:w-1/2 min-h-100 lg:h-[80vh] rounded-md bg-[#141319] p-4 sm:p-5 md:p-6">
 
             <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-6">
               Describe your component, and let AI code it for you.
@@ -164,6 +165,7 @@ const Home = () => {
 
             <Select
               options={options}
+              value={options.find(option => option.value === framework)}
               styles={customStyles}
               onChange={(selectedOption) => setFramework(selectedOption.value)}
               placeholder="Select a framework..."
@@ -178,7 +180,7 @@ const Home = () => {
                 onChange={(e) => setPrompt(e.target.value)}
                 value={prompt}
                 placeholder="Example: Create a responsive pricing card with a gradient header and call-to-action button..."
-                className="w-full min-h-[150px] md:min-h-[200px] rounded-md bg-[#09090B] border border-gray-700 p-4 text-sm sm:text-base resize-none focus:outline-none focus:border-purple-500"
+                className="w-full min-h-37.5 md:min-h-50 rounded-md bg-[#09090B] border border-gray-700 p-4 text-sm sm:text-base resize-none focus:outline-none focus:border-purple-500"
               />
             </div>
 
@@ -188,10 +190,10 @@ const Home = () => {
                 className="
                 cursor-pointer
       w-full sm:w-auto
-      min-w-[140px]
+      min-w-35
       px-6 py-3
       rounded-lg
-      bg-gradient-to-r from-purple-500 to-purple-600
+      bg-linear-to-r from-purple-500 to-purple-600
       hover:from-purple-600 hover:to-purple-700
       text-white
       font-semibold
@@ -206,7 +208,7 @@ const Home = () => {
 
           </div>
 
-          <div className="w-full lg:w-1/2 min-h-[400px] lg:h-[80vh] rounded-md bg-[#141319] p-5">
+          <div className="w-full lg:w-1/2 min-h-100 lg:h-[80vh] rounded-md bg-[#141319] p-5">
             {error && (
               <div className="text-red-500 text-center py-4">
                 {error}

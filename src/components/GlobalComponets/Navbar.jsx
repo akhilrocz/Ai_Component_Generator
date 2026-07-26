@@ -1,11 +1,10 @@
-import React from 'react'
 import { CiLight } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 
 const Navbar = () => {
   return (
-    <nav className="h-[90px] border-b border-gray-700">
+    <nav className="h-22.5 border-b border-gray-700">
       <div className="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <h3 className="text-lg sm:text-xl md:text-2xl font-bold gradient-colors">
           AI Component Generator
