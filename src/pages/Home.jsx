@@ -60,9 +60,7 @@ const Home = () => {
     try {
       await navigator.clipboard.writeText(code);
       toast.success("Code copied to clipboard")
-      //console.log('Content copied to clipboard');
     } catch (err) {
-      //console.error('Failed to copy: ', err);
       toast.error("Failed to copy");
     }
   }
