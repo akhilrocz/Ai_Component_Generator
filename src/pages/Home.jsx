@@ -91,21 +91,8 @@ const Home = () => {
   }
 
   const openInNewTab = () => {
-
-    if (!code) {
-      toast.error("No code available to preview.")
-      return;
-    }
-
-    const newWindow = window.open("", "_blank");
-
-    if (!newWindow) {
-      toast.error("Popup blocked by browser");
-      return;
-    }
-    newWindow.document.write(code);
-    newWindow.document.close();
-
+    localStorage.setItem("previewCode",code);
+    window.open("/preview","_blank")
   }
 
   const refreshPage = () => {

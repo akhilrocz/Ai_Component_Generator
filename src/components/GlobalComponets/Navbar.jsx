@@ -1,6 +1,4 @@
 import { CiLight } from "react-icons/ci";
-import { FaRegUserCircle } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 
 const Navbar = () => {
   return (
@@ -16,20 +14,6 @@ const Navbar = () => {
             className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-[#141319] hover:border-purple-500 hover:text-purple-400 transition-all duration-300"
           >
             <CiLight size={20} />
-          </button>
-
-          <button
-            aria-label="Profile"
-            className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-[#141319] hover:border-purple-500 hover:text-purple-400 transition-all duration-300"
-          >
-            <FaRegUserCircle size={20} />
-          </button>
-
-          <button
-            aria-label="Settings"
-            className="w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-[#141319] hover:border-purple-500 hover:text-purple-400 transition-all duration-300"
-          >
-            <IoMdSettings size={20} />
           </button>
         </div>
       </div>
