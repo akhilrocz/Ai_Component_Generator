@@ -1,17 +1,18 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Preview = () => {
-    const iframeRef = useRef(null);
+
+    const [code,setCode]=useState("");
 
     useEffect(() => {
-        const code = localStorage.getItem("previewCode")
+        const previewCode = localStorage.getItem("previewCode")
 
-        if (iframeRef.current && code) {
-            iframeRef.current.srcDoc = code;
+        if (previewCode) {
+            setCode(previewCode)
         }
     }, [])
     return (
-        <iframe ref={iframeRef} title='preview' style={{ width: "100vw", height: "100vh", border: "none" }} />
+        <iframe srcDoc={code} title='preview' style={{ width: "100vw", height: "100vh", border: "none" }} />
     )
 }
 
