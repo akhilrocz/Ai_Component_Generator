@@ -1,22 +1,21 @@
-import { useState } from 'react'
-//import Navbar from "../../src/components/GlobalComponets/Navbar"
-import Select from 'react-select'
+import { useState } from "react";
+import Select from "react-select";
 import { TbCode } from "react-icons/tb";
-import Editor from '@monaco-editor/react';
-import { FiCopy, FiShare2, FiRefreshCcw } from "react-icons/fi"
-import { LuExternalLink } from "react-icons/lu"
-import { toast } from 'react-toastify';
-import { ClipLoader } from "react-spinners"
+import Editor from "@monaco-editor/react";
+import { FiCopy, FiShare2, FiRefreshCcw } from "react-icons/fi";
+import { LuExternalLink } from "react-icons/lu";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 import { GoogleGenAI } from "@google/genai";
 
 const Home = () => {
   const options = [
-    { value: 'html-css', label: 'HTML + CSS' },
-    { value: 'html-tailwind', label: 'HTML + Tailwind CSS' },
-    { value: 'html-css-js', label: 'HTML + CSS + JS' },
-    { value: 'html-tailwind-bootstrap', label: 'HTML + Tailwind + Bootstrap' },
-  ]
+    { value: "html-css", label: "HTML + CSS" },
+    { value: "html-tailwind", label: "HTML + Tailwind CSS" },
+    { value: "html-css-js", label: "HTML + CSS + JS" },
+    { value: "html-tailwind-bootstrap", label: "HTML + Tailwind + Bootstrap" },
+  ];
 
   const [outputScreen, setOutputScreen] = useState(false);
   const [previewKey, setPreviewKey] = useState(0);
@@ -35,7 +34,6 @@ const Home = () => {
   }
 
   async function getResponse() {
-
     setLoading(true);
 
     try {
@@ -45,7 +43,7 @@ const Home = () => {
       });
       setOutputScreen(true);
       setError("");
-      setCode(extractCode(interaction.output_text))
+      setCode(extractCode(interaction.output_text));
     } catch (error) {
       if (error.message?.includes("429")) {
         setError("Rate limit exceeded. Please try again later.");
@@ -59,12 +57,12 @@ const Home = () => {
   const copyText = async () => {
     try {
       await navigator.clipboard.writeText(code);
-      toast.success("Code copied to clipboard")
+      toast.success("Code copied to clipboard");
     } catch (error) {
       console.error(error);
       toast.error("Failed to copy");
     }
-  }
+  };
 
   const shareCode = async () => {
     try {
@@ -76,8 +74,8 @@ const Home = () => {
       if (navigator.share) {
         await navigator.share({
           title: "Ai generated output",
-          text: code
-        })
+          text: code,
+        });
 
         toast.success("Code shared successfully");
       } else {
@@ -88,7 +86,7 @@ const Home = () => {
       console.error(error);
       toast.error("Failed to share");
     }
-  }
+  };
 
   const openInNewTab = () => {
     localStorage.setItem("previewCode",code);
@@ -97,49 +95,44 @@ const Home = () => {
 
   const refreshPage = () => {
     setPreviewKey((prev) => prev + 1);
-  }
-
+  };
 
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      backgroundColor: '#141319',
-      borderColor: '#374151',
-      boxShadow: 'none',
-      minHeight: '48px',
+      backgroundColor: "#141319",
+      borderColor: "#374151",
+      boxShadow: "none",
+      minHeight: "48px",
     }),
     menu: (provided) => ({
       ...provided,
-      backgroundColor: '#141319',
+      backgroundColor: "#141319",
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? '#2a2930' : '#141319',
-      color: '#fff',
-      cursor: 'pointer',
+      backgroundColor: state.isFocused ? "#2a2930" : "#141319",
+      color: "#fff",
+      cursor: "pointer",
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: '#fff',
+      color: "#fff",
     }),
     input: (provided) => ({
       ...provided,
-      color: '#fff',
+      color: "#fff",
     }),
     placeholder: (provided) => ({
       ...provided,
-      color: '#9ca3af',
+      color: "#9ca3af",
     }),
-  }
+  };
   return (
     <div>
-      {/* <Navbar /> */}
-
       <div className="px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
         <div className="flex flex-col lg:flex-row gap-5">
-
           <div className="w-full lg:w-1/2 min-h-100 lg:h-[80vh] rounded-md bg-[#141319] p-4 sm:p-5 md:p-6">
-
             <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-6">
               Describe your component, and let AI code it for you.
             </p>
@@ -152,7 +145,7 @@ const Home = () => {
 
             <Select
               options={options}
-              value={options.find(option => option.value === framework)}
+              value={options.find((option) => option.value === framework)}
               styles={customStyles}
               onChange={(selectedOption) => setFramework(selectedOption.value)}
               placeholder="Select a framework..."
@@ -172,7 +165,8 @@ const Home = () => {
             </div>
 
             <div className="mt-6">
-              <button onClick={getResponse}
+              <button
+                onClick={getResponse}
                 disabled={loading}
                 className="
                 cursor-pointer
@@ -192,19 +186,16 @@ const Home = () => {
                 Generate
               </button>
             </div>
-
           </div>
 
           <div className="w-full lg:w-1/2 min-h-100 lg:h-[80vh] rounded-md bg-[#141319] p-5">
             {error && (
-              <div className="text-red-500 text-center py-4">
-                {error}
-              </div>
+              <div className="text-red-500 text-center py-4">{error}</div>
             )}
             {loading ? (
-              <div className='h-full flex flex-col items-center justify-center gap-4'>
+              <div className="h-full flex flex-col items-center justify-center gap-4">
                 <ClipLoader color="#a855f7" size={50} />
-                <p className='text-gray-400'>Generating component...</p>
+                <p className="text-gray-400">Generating component...</p>
               </div>
             ) : !outputScreen ? (
               <div className="h-full flex items-center justify-center">
@@ -218,28 +209,29 @@ const Home = () => {
                   </h3>
 
                   <p className="text-gray-400 leading-relaxed">
-                    Your component preview and generated code will appear here after generation.
+                    Your component preview and generated code will appear here
+                    after generation.
                   </p>
                 </div>
               </div>
-
             ) : (
               <div className="h-full overflow-hidden rounded-md border border-gray-700 flex flex-col">
                 <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-[#09090B]">
-
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setTab(1)}
-                      className={`px-4 py-2 rounded-md text-white text-sm font-medium ${tab === 1 ? "bg-purple-600" : "bg-[#333]"
-                        }`}
+                      className={`px-4 py-2 rounded-md text-white text-sm font-medium ${
+                        tab === 1 ? "bg-purple-600" : "bg-[#333]"
+                      }`}
                     >
                       Code
                     </button>
 
                     <button
                       onClick={() => setTab(2)}
-                      className={`px-4 py-2 rounded-md text-white text-sm font-medium ${tab === 2 ? "bg-purple-600" : "bg-[#333]"
-                        }`}
+                      className={`px-4 py-2 rounded-md text-white text-sm font-medium ${
+                        tab === 2 ? "bg-purple-600" : "bg-[#333]"
+                      }`}
                     >
                       Preview
                     </button>
@@ -266,14 +258,16 @@ const Home = () => {
                       </>
                     ) : (
                       <>
-                        <button onClick={openInNewTab}
+                        <button
+                          onClick={openInNewTab}
                           className="flex items-center gap-2 px-3 py-2 rounded-md bg-[#333] hover:bg-[#444] transition-all text-sm"
                         >
                           <LuExternalLink size={16} />
                           Open in New Tab
                         </button>
 
-                        <button onClick={refreshPage}
+                        <button
+                          onClick={refreshPage}
                           className="flex items-center gap-2 px-3 py-2 rounded-md bg-[#333] hover:bg-[#444] transition-all text-sm"
                         >
                           <FiRefreshCcw size={16} />
@@ -282,7 +276,6 @@ const Home = () => {
                       </>
                     )}
                   </div>
-
                 </div>
 
                 <div className="flex-1">
@@ -308,7 +301,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
