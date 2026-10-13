@@ -1,11 +1,4 @@
-/* * {
-  margin: 0;
-  padding: 0;
-} */
-
 body {
-  /* margin: 0;
-  padding: 0; */
   box-sizing: border-box;
   overflow-x: hidden;
   background-color: var(--primary-bg);
@@ -17,19 +10,14 @@ html {
 }
 
 :root {
-  --primary-bg: #09090B;
+  --primary-bg: #09090b;
   --secondary-bg: #141319;
-  --tertiary-bg: #17171C;
+  --tertiary-bg: #17171c;
 }
 
 .gradient-colors {
-    background: conic-gradient(
-      from 0deg,
-      #c084fc,
-      #a855f7
-    );
-  
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  background: conic-gradient(from 0deg, #c084fc, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

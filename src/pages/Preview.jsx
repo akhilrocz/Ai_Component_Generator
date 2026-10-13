@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from "react";
 
 const Preview = () => {
+  const [code] = useState(() => {
+    try {
+      return localStorage.getItem("previewCode") || "";
+    } catch (error) {
+      console.error("Error retrieving preview code:", error);
+      return "";
+    }
+  });
 
-    const [code,setCode]=useState("");
+  return (
+    <iframe
+      srcDoc={code}
+      title="preview"
+      style={{ width: "100%", height: "100vh", border: "none" }}
+    />
+  );
+};
 
-    useEffect(() => {
-        const previewCode = localStorage.getItem("previewCode")
-
-        if (previewCode) {
-            setCode(previewCode)
-        }
-    }, [])
-    return (
-        <iframe srcDoc={code} title='preview' style={{ width: "100vw", height: "100vh", border: "none" }} />
-    )
-}
-
-export default Preview
+export default Preview;

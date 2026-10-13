@@ -89,9 +89,9 @@ const Home = () => {
   };
 
   const openInNewTab = () => {
-    localStorage.setItem("previewCode",code);
-    window.open("/preview","_blank")
-  }
+    localStorage.setItem("previewCode", code);
+    window.open("/preview", "_blank");
+  };
 
   const refreshPage = () => {
     setPreviewKey((prev) => prev + 1);
